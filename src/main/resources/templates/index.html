@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DEMO DE CITAS MEDICAS</title>
+<link th:rel="stylesheet"
+	th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}" />
+<link th:rel="stylesheet"
+	th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}" />
+<link th:rel="stylesheet" th:href="@{assets/css/custom.css}" />
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-10">
+				<h2>DEMO DE CITAS MEDICAS</h2>
+			</div>
+		</div>
+		<div class="row" id="consulta">
+			<form th:action="@{/}" method="post">
+				<label class="col-sm-4 col-form-label" for="validationTooltip04">Doctor</label>
+				<div class="col-sm-8">
+					<select class="form-control" name="tipo" required>
+						<option th:each="doctor : ${doctores}" class="form-control"
+							id="validationTooltip02" th:value="${doctor.id}"
+							th:text="${doctor.nombre}"></option>
+					</select>
+					<div class="invalid-tooltip">Selecciona un doctor.</div>
+				</div>
+				<label class="col-sm-4 col-form-label" for="validationTooltip05">Fecha</label>
+				<div class="col-sm-8 input-group date">
+					<input name="fechaConsulta" type="text" class="form-control"
+						id="validationTooltip03" autocomplete="off" required>
+					<div class="input-group-append">
+						<span class="input-group-text"> <i
+							class="far fa-calendar-alt"></i></span>
+					</div>
+					<div class="invalid-tooltip">Ingresar una Fecha</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Buscar</button>
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<table id="ciclos" class="table table-hover table-bordered "
+					data-page-length="15">
+					<thead>
+						<tr>
+							<th>Consultorio</th>
+							<th>Doctor</th>
+							<th>Horario</th>
+							<th>Paciente</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cita: ${listaCita}">
+							<td>
+							<td th:text="${cita.consulltorio}"></td>
+							<td th:text="${cita.doctor}"></td>
+							<td th:text="${cita.horario}"></td>
+							<td th:text="${cita.paciente}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#addCycle">Agregar</button>
+
+				<th:block th:replace="_addcita :: modal('addCycle')">modal</th:block>
+			</div>
+		</div>
+		<div class="row">
+			<p th:text="${message}" th:if="${message ne null}"
+				class="alert alert-primary"></p>
+		</div>
+	</div>
+
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+	<script th:src="@{assets/bootstrap-datepicker/js/dataTables.min.js}"></script>
+
+	<script>
+$('#consulta .input-group.date').datepicker({
+autoclose : true,
+todayHighlight : true,
+format : "yyyy-mm-dd",
+language : "es"
+}).datepicker("setDate", new Date());
+
+
+$('#fechaCita .input-group.date').datepicker({
+autoclose : true,
+todayHighlight : true,
+format : "yyyy-mm-dd",
+language : "es"
+}).datepicker("setDate", new Date());
+</script>
+
+</body>
+</html>

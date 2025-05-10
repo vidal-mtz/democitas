@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<!-- Modal -->
+	<div th:fragment="modal(id)" class="modal fade" th:id="${id}"
+		tabindex="-1" role="dialog" aria-labelledby="addCycle"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Alta de Cita</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:action="@{/agregarCiclo}" method="post">
+					<div class="modal-body">
+						<div class="row">
+							<label class="col-sm-4 col-form-label" for="validationTooltip05">Consultorio</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="consultorio" required>
+									<option th:each="consultorio : ${consultorios}"
+										class="form-control" id="validationTooltip02"
+										th:value="${consultorio.numero}"
+										th:text="${consultorio.descripcion}"></option>
+								</select>
+								<div class="invalid-tooltip">Selecciona un consultorio.</div>
+							</div>
+						</div>
+						<div class="row">
+							<label class="col-sm-4 col-form-label" for="validationTooltip05">Doctor</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="doctor" required>
+									<option th:each="doctor : ${doctores}" class="form-control"
+										id="validationTooltip02" th:value="${doctor.id}"
+										th:text="${doctor.nombre}"></option>
+								</select>
+								<div class="invalid-tooltip">Selecciona un doctor.</div>
+							</div>
+						</div>
+						<div class="row" id="fechaCita">
+							<label class="col-sm-4 col-form-label" for="validationTooltip05">Fecha
+								de Inicio</label>
+							<div class="col-sm-8 input-group date">
+								<input name="horario" type="text" class="form-control"
+									id="validationTooltip03" autocomplete="off" required>
+								<div class="input-group-append">
+									<span class="input-group-text"> <i
+										class="far fa-calendar-alt"></i></span>
+								</div>
+								<div class="invalid-tooltip">Ingresar una Fecha.</div>
+							</div>
+						</div>
+						<div class="row">
+							<label class="col-sm-4 col-form-label" for="validationTooltip03">Paciente</label>
+							<div class="col-sm-8">
+								<input name="paciente" class="form-control"
+									id="validationTooltip01" required>
+								<div class="invalid-tooltip">Nombre del Paciente.</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cerrar</button>
+						<button type="submit" class="btn btn-primary">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

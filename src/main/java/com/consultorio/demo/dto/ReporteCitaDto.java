@@ -1,14 +1,20 @@
 package com.consultorio.demo.dto;
 
-public class CitaDto {
+public class ReporteCitaDto {
 	private Long citaId;
 
 	private String consultorio;
-	private Long doctor;
-	private String dia;
-	private String hora;
-	private int duracion;
+	private String doctor;
+	private String horario;
 	private String paciente;
+
+	public ReporteCitaDto(Long citaId, String consultorio, String doctor, String horario, String paciente) {
+		this.citaId = citaId;
+		this.consultorio = consultorio;
+		this.doctor = doctor;
+		this.horario = horario;
+		this.paciente = paciente;
+	}
 
 	public Long getCitaId() {
 		return citaId;
@@ -26,36 +32,20 @@ public class CitaDto {
 		this.consultorio = consultorio;
 	}
 
-	public Long getDoctor() {
+	public String getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Long doctor) {
+	public void setDoctor(String doctor) {
 		this.doctor = doctor;
 	}
 
-	public String getDia() {
-		return dia;
+	public String getHorario() {
+		return horario;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
-	}
-
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
-
-	public int getDuracion() {
-		return duracion;
-	}
-
-	public void setDuracion(int duracion) {
-		this.duracion = duracion;
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
 
 	public String getPaciente() {
@@ -69,18 +59,14 @@ public class CitaDto {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("CitaDto [citaId=");
+		builder.append("ReporteCitaDto [citaId=");
 		builder.append(citaId);
 		builder.append(", consultorio=");
 		builder.append(consultorio);
 		builder.append(", doctor=");
 		builder.append(doctor);
-		builder.append(", dia=");
-		builder.append(dia);
-		builder.append(", hora=");
-		builder.append(hora);
-		builder.append(", duracion=");
-		builder.append(duracion);
+		builder.append(", horario=");
+		builder.append(horario);
 		builder.append(", paciente=");
 		builder.append(paciente);
 		builder.append("]");

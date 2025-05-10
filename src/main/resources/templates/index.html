@@ -9,7 +9,6 @@
 	th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}" />
 <link th:rel="stylesheet"
 	th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}" />
-<link th:rel="stylesheet" th:href="@{assets/css/custom.css}" />
 </head>
 
 <body>
@@ -20,20 +19,21 @@
 			</div>
 		</div>
 		<div class="row" id="consulta">
-			<form th:action="@{/}" method="post">
+			<form th:action="@{/}" method="get">
 				<label class="col-sm-4 col-form-label" for="validationTooltip04">Doctor</label>
 				<div class="col-sm-8">
-					<select class="form-control" name="tipo" required>
-						<option th:each="doctor : ${doctores}" class="form-control"
-							id="validationTooltip02" th:value="${doctor.id}"
-							th:text="${doctor.nombre}"></option>
+					<select class="form-control" name="doctorId" required>
+						<option th:each="doctor : ${busDoctor}" class="form-control"
+							id="validationTooltip04" th:value="${doctor.id}"
+							th:selected="${doctor.id==selDoctor}" th:text="${doctor.nombre}"></option>
 					</select>
 					<div class="invalid-tooltip">Selecciona un doctor.</div>
 				</div>
 				<label class="col-sm-4 col-form-label" for="validationTooltip05">Fecha</label>
 				<div class="col-sm-8 input-group date">
 					<input name="fechaConsulta" type="text" class="form-control"
-						id="validationTooltip03" autocomplete="off" required>
+						th:value="${fechaBus}" id="validationTooltip05" autocomplete="off"
+						required>
 					<div class="input-group-append">
 						<span class="input-group-text"> <i
 							class="far fa-calendar-alt"></i></span>
@@ -56,9 +56,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="cita: ${listaCita}">
-							<td>
-							<td th:text="${cita.consulltorio}"></td>
+						<tr th:each="cita: ${listaCitas}">
+							<td th:text="${cita.consultorio}"></td>
 							<td th:text="${cita.doctor}"></td>
 							<td th:text="${cita.horario}"></td>
 							<td th:text="${cita.paciente}"></td>
@@ -70,9 +69,9 @@
 		<div class="row">
 			<div class="col">
 				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#addCycle">Agregar</button>
+					data-target="#addCita">Agregar</button>
 
-				<th:block th:replace="_addcita :: modal('addCycle')">modal</th:block>
+				<th:block th:replace="_addcita :: modal('addCita')">modal</th:block>
 			</div>
 		</div>
 		<div class="row">
@@ -93,7 +92,7 @@ autoclose : true,
 todayHighlight : true,
 format : "yyyy-mm-dd",
 language : "es"
-}).datepicker("setDate", new Date());
+});
 
 
 $('#fechaCita .input-group.date').datepicker({
